@@ -4,7 +4,7 @@ EMAIL_MAX_LENGTH,
 DESCRIPTION_MAX_LENGTH} from './constants';
 
 export const validateTitle = title => {
-  if(!title){
+  if(!title || !title.trim()){
     return "You must have a title";
   }
   if(title.length > TITLE_MAX_LENGTH){
@@ -14,7 +14,7 @@ export const validateTitle = title => {
 }
 
 export const validateEmail = email => {
-  if(!email){
+  if(!email || !email.trim()){
     return 'You must enter an email'
   }
   if(email.length > EMAIL_MAX_LENGTH){

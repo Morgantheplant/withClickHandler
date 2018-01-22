@@ -1,13 +1,14 @@
 import {UPDATE_TITLE,
 UPDATE_DESCRIPTION,
 UPDATE_EMAIL,
+FETCHING_STATUSES,
 SAVE_SUCCESS,
 SAVE_DATA,
 VALIDATE} from './constants';
 
-export const changeEmail = ({target}) => ({
+export const changeEmail = (email) => ({
   type: UPDATE_EMAIL,
-  email: target.value
+  email
 })
 
 export const changeTitle = ({target}) => ({
@@ -33,15 +34,39 @@ const saveData = () => ({
   type: SAVE_DATA
 });
 
-export const sendData = () =>  (dispatch, getState)=> {
-  dispatch(validate())
-  if(getState().hasErrors) {
-    return 
-  }
+const present = (state, action) => {
 
-    dispatch(saveData())
-    setTimeout(()=>{
-      console.log('saving --->>>>>')
-      dispatch(saveSuccess())
-    }, 1000)
+}
+
+const machine = {
+  [FETCHING_STATUSES.IDLE]: {
+    // VALIDATE: FETCHING_STATUSES.IDLE,
+    SAVE_DATA: FETCHING_STATUSES.SAVING
+  },
+  [FETCHING_STATUSES.SAVING]: {
+    SAVE_SUCCESS: FETCHING_STATUSES.IDLE,
+    SAVE_ERROR: FETCHING_STATUSES.ERROR
+  },
+  [FETCHING_STATUSES.ERROR]: {
+    SAVE_DATA: FETCHING_STATUSES.SAVING
+  }
+};
+
+function transition(currentState, action) {
+  return machine[currentState][action];
+}
+
+
+export const sendData = currentState =>  (dispatch, getState)=> {
+  const nextState = transition(currentState, SAVE_DATA);
+  console.log(nextState)
+  dispatch(validate())
+  if(nextState){
+      dispatch(saveData())
+      setTimeout(()=>{
+        console.log('saving --->>>>>')
+        dispatch(saveSuccess())
+      }, 1000)
+  
+  }
 }
