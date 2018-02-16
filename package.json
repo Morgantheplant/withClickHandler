@@ -1,29 +1,29 @@
 {
-  "name": "react_redux_validation",
+  "name": "withClickHandler",
   "version": "1.0.0",
-  "description": "react/redux testing",
-  "main": "main.js",
+  "description": "High Order Component for binding click handlers",
+  "main": "example.js",
   "scripts": {
-    "build":
-      "NODE_ENV=production browserify main.js | uglifyjs -cm > public/bundle.js",
+    "build": "NODE_ENV=production browserify example.js | uglifyjs -cm > public/bundle.js",
     "start": "ecstatic -p 8000 public",
-    "watch": "watchify main.js -o public/bundle.js -dv"
+    "watch": "watchify example.js -o public/bundle.js -dv"
   },
   "author": "morgantheplant",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "react": "15.6.2",
-    "react-dom": "15.6.2",
-    "react-redux": "4.4.8",
-    "redux": "3.7.2",
-    "redux-thunk": "2.2.0"
+    "react-dom": "15.6.2"
   },
   "browserify": {
     "transform": [
       [
         "babelify",
         {
-          "presets": ["es2015", "react", "stage-2"]
+          "presets": [
+            "es2015",
+            "react",
+            "stage-2"
+          ]
         }
       ]
     ]

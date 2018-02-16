@@ -1,10 +1,3 @@
-`withClickHandler` is a High Order Component that binds a click handler
-to the passed in Component. It allows onClickValues to be passed to the Component
-that are accessible as params when the click handler is invoked. This aims to
-reduce boilerplate and encourage writing more Stateless Functional Components in projects.
-
-
-```
 import React from 'react';
 import ReactDOM from 'react-dom';
 import withClickHandler from './withClickHandler';
@@ -32,4 +25,3 @@ const App = props =>
   <Parent values={['one fish', 'two fish', 'red fish', 'blue fish']} clicker={alertChild} />;
 
 ReactDOM.render(<App />, document.querySelector('#react-entry'));
-```
